@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
+import { getRepository } from 'typeorm';
 
-export const Register = (req: Request, res: Response) => {
+import { People } from 'orm/entities/people/People';
+
+export const Register = async (req: Request, res: Response) => {
   console.log('working');
   res.send(req.body);
 };
