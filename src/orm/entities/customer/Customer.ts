@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('people')
-export class People {
+@Entity('customer')
+export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
 
