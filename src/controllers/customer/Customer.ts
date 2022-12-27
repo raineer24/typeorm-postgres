@@ -21,7 +21,12 @@ export const Register = async (req: Request, res: Response) => {
 };
 
 export const Login = async (req: Request, res: Response) => {
-  const customer = await getRepository(Customer).findOne({ email: req.body.email });
+  const customer = await getRepository(Customer).findOne(
+    { email: req.body.email },
+    {
+      select: ['id', 'password', 'is_ambassador'],
+    },
+  );
 
   if (!customer) {
     return res.status(400).send({
@@ -29,9 +34,11 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
+  // eslint-disable-next-line prettier/prettier
   if (!(await bcryptjs.compare(req.body.password, customer.password))) {
+    console.log('customer', customer);
     return res.status(400).send({
-      message: 'invalid credentials',
+      message: 'invalid credentials!',
     });
   }
 
