@@ -1,5 +1,6 @@
 import bcryptjs from 'bcryptjs';
 import { Request, Response, NextFunction } from 'express';
+import { sign, verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 
 import { Customer } from 'orm/entities/customer/Customer';
@@ -34,7 +35,6 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
-  // eslint-disable-next-line prettier/prettier
   if (!(await bcryptjs.compare(req.body.password, customer.password))) {
     console.log('customer', customer);
     return res.status(400).send({
@@ -42,5 +42,11 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
-  res.send(customer);
+  const token = sign(
+    {
+      id: customer.id,
+    },
+    process.env.JWT_SECRET,
+  );
+  res.send(token);
 };
