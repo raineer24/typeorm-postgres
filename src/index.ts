@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -17,6 +18,7 @@ import routes from './routes';
 
 export const app = express();
 app.use(cors());
+app.use(cookieParser());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
