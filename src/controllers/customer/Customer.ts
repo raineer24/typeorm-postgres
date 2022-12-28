@@ -48,5 +48,15 @@ export const Login = async (req: Request, res: Response) => {
     },
     process.env.JWT_SECRET,
   );
-  res.send(token);
+
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, //1 DAY
+  });
+
+  res.send({
+    message: 'success',
+  });
 };
+
+export const AuthenticatedUser = async (req: Request, res: Response) => { }
