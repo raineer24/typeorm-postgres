@@ -18,6 +18,8 @@ export const Register = async (req: Request, res: Response) => {
     is_ambassador: false,
   });
 
+  delete user.password;
+
   res.send(user);
 };
 
@@ -60,19 +62,31 @@ export const Login = async (req: Request, res: Response) => {
 };
 
 export const AuthenticatedUser = async (req: Request, res: Response) => {
-  const jwt = req.cookies['jwt'];
-  console.log('auth');
+  try {
+    const jwt = req.cookies['jwt'];
+    console.log('auth');
 
-  const payload: any = verify(jwt, process.env.JWT_SECRET);
-  console.log('payload', payload);
+    const payload: any = verify(jwt, process.env.JWT_SECRET);
+    console.log('payload', payload);
 
-  if (!payload) {
+    if (!payload) {
+      return res.status(401).send({
+        message: 'unauthenticated',
+      });
+    }
+
+    const customer = await getRepository(Customer).findOne(payload.id);
+
+    res.send(customer);
+  } catch {
     return res.status(401).send({
-      message: 'unauthenticatred',
+      message: 'unauthenticated',
     });
   }
+};
 
-  const { password, ...customer } = await getRepository(Customer).findOne(payload.id);
+export const Logout = async (req: Request, res: Response) => {
+  res.cookie('jwt', '', { maxAge: 0 });
 
-  res.send(customer);
+  res.send({ message: 'success' });
 };
