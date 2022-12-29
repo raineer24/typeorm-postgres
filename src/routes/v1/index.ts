@@ -3,7 +3,6 @@ import { Router } from 'express';
 import auth from './auth';
 import customer from './customer';
 import users from './users';
-
 const router = Router();
 
 router.use('/auth', auth);
