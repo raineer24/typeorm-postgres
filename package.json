@@ -6,7 +6,7 @@
     "dev": "debug=* NODE_PATH=./src ts-node-dev --respawn ./src/index.ts",
     "build": "rimraf dist && tsc",
     "start": "debug=* NODE_PATH=./src ts-node-dev --respawn ./src/index.ts",
-    "seed:ambassadors": "ts-node src/seeder/ambassador.seeder.ts",
+    "seed:ambassadors": "ts-node src/seeder/ambassador.seeder.ts --config ./src/orm/config/ormconfig-seed.ts",
     "prepare": "husky install",
     "lint": "eslint --max-warnings 0 . && npm run tsc",
     "lint-fix": "eslint --fix .",

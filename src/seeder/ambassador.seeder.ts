@@ -18,5 +18,6 @@ createConnection().then(async () => {
       is_ambassador: true,
     });
   }
+
   process.exit();
 });
