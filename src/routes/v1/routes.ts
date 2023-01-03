@@ -4,7 +4,7 @@ import { Register, Login, AuthenticatedUser, Logout, UpdateInfo, UpdatePassword 
 import { Ambassadors } from 'controllers/user';
 import { AuthMiddleware } from 'middleware/auth.middleware';
 
-import { Products } from '../../controllers/product/product.controller';
+import { Products, CreateProduct } from '../../controllers/product/product.controller';
 
 const router = Router();
 
@@ -15,8 +15,8 @@ router.post('/logout', AuthMiddleware, Logout);
 router.put('/info', AuthMiddleware, UpdateInfo);
 router.put('/password', AuthMiddleware, UpdatePassword);
 router.get('/ambassadors', AuthMiddleware, Ambassadors);
-router.get('/api/admin/products', AuthMiddleware, Products);
-router.post('/api/admin/products', AuthMiddleware, CreateProduct);
+router.get('/products', AuthMiddleware, Products);
+router.post('/products', AuthMiddleware, CreateProduct);
 // Ambassador
 
 export default router;
