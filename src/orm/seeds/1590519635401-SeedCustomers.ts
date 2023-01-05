@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner, getRepository } from 'typeorm';
 
 import { Customer } from 'orm/entities/customer/Customer';
 
-export class SeedCustomers1590519635401 implements MigrationInterface {
+export class SeedCustomers1590519635402 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     let user = new Customer();
     const userRepository = getRepository(Customer);
