@@ -4,6 +4,7 @@ import { Register, Login, AuthenticatedUser, Logout, UpdateInfo, UpdatePassword 
 import { Ambassadors } from 'controllers/user';
 import { AuthMiddleware } from 'middleware/auth.middleware';
 
+import { Links } from '../../controllers/links/Links';
 import {
   Products,
   CreateProduct,
@@ -26,6 +27,7 @@ router.post('/products', AuthMiddleware, CreateProduct);
 router.get('/products/:id', AuthMiddleware, GetProduct);
 router.put('/products/:id', AuthMiddleware, UpdateProduct);
 router.delete('/products/:id', AuthMiddleware, DeleteProduct);
+router.get('/:id/links', AuthMiddleware, Links);
 // Ambassador
 
 export default router;
