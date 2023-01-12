@@ -21,7 +21,7 @@ export class Link {
   code: string;
 
   @ManyToOne(() => Customer)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'users_id' })
   customer: Customer;
 
   @ManyToMany(() => Product)

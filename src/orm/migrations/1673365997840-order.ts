@@ -1,10 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateUsers1590521920166 implements MigrationInterface {
-  name = 'CreateCustomerII1671552510254';
-
+  name = 'CreateCustomerII1671552510255';
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "customer"`);
     await queryRunner.query(
       `CREATE TABLE "customer"
       ("id" SERIAL NOT NULL UNIQUE,
@@ -15,7 +13,7 @@ export class CreateUsers1590521920166 implements MigrationInterface {
          "is_ambassador" BOOLEAN)`,
       undefined,
     );
-    await queryRunner.query(`DROP TABLE "product"`);
+
     await queryRunner.query(
       `CREATE TABLE "product"
       (
@@ -37,15 +35,21 @@ export class CreateUsers1590521920166 implements MigrationInterface {
          UNIQUE(users_id))`,
       undefined,
     );
-    await queryRunner.query(`CREATE TABLE IF NOT EXISTS link_products
+    await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS link_products
     (
        link_id SERIAL UNIQUE,
        product_id INTEGER,
        FOREIGN KEY (link_id) REFERENCES link (id),
-       FOREIGN KEY (product_id) REFERENCES product (id)); `);
+       FOREIGN KEY (product_id) REFERENCES product (id))`,
+      undefined,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`DROP TABLE "link"`, undefined);
+    await queryRunner.query(`DROP TABLE "link_products"`, undefined);
+    await queryRunner.query(`DROP TABLE "order"`, undefined);
+    await queryRunner.query(`DROP TABLE "order_item"`, undefined);
   }
 }
