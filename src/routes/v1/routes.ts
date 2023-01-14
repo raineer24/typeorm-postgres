@@ -5,6 +5,7 @@ import { Ambassadors } from 'controllers/user';
 import { AuthMiddleware } from 'middleware/auth.middleware';
 
 import { Links } from '../../controllers/links/Links';
+import { Orders } from '../../controllers/orders/orders.controller';
 import {
   Products,
   CreateProduct,
@@ -28,6 +29,7 @@ router.get('/products/:id', AuthMiddleware, GetProduct);
 router.put('/products/:id', AuthMiddleware, UpdateProduct);
 router.delete('/products/:id', AuthMiddleware, DeleteProduct);
 router.get('/:id/links', AuthMiddleware, Links);
+router.get('/orders', AuthMiddleware, Orders);
 // Ambassador
 
 export default router;
