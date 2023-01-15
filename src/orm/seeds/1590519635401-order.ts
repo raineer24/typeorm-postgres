@@ -17,9 +17,9 @@ export class SeedCustomers1590519635405 implements MigrationInterface {
         code: faker.random.alphaNumeric(6),
         ambassador_email: faker.internet.email(),
         first_name: faker.name.firstName(),
-        last_name: faker.name.lastName();
+        last_name: faker.name.lastName(),
         email: faker.internet.email(),
-        complete: true
+        complete: true,
       });
 
       for (let j = 0; j < randomInt(1, 5); j++) {
