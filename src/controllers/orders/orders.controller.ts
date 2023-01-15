@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 
 import { Order } from '../../orm/entities/orders/Orders';
 export const Orders = async (req: Request, res: Response) => {
