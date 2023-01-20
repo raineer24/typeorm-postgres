@@ -33,12 +33,12 @@ export class Link {
   })
   products: Product[];
 
-  @OneToMany(() => Order, order => order.link, {
-    createForeignKeyConstraints: false
-})
-@JoinColumn({
+  @OneToMany(() => Order, (order) => order.link, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({
     referencedColumnName: 'code',
-    name: 'code'
-})
-orders: Order[];
+    name: 'code',
+  })
+  orders: Order[];
 }

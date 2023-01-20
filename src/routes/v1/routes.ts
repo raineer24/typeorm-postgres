@@ -30,6 +30,13 @@ router.put('/products/:id', AuthMiddleware, UpdateProduct);
 router.delete('/products/:id', AuthMiddleware, DeleteProduct);
 router.get('/:id/links', AuthMiddleware, Links);
 router.get('/orders', AuthMiddleware, Orders);
+
 // Ambassador
+router.post('/ambasaddor/register', Register);
+router.post('/ambasaddor/login', Login);
+router.get('/ambasaddor/user', AuthMiddleware, AuthenticatedUser);
+router.post('/ambasaddor/logout', AuthMiddleware, Logout);
+router.put('/ambasaddor/info', AuthMiddleware, UpdateInfo);
+router.put('/ambasaddor/password', AuthMiddleware, UpdatePassword);
 
 export default router;

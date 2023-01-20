@@ -15,7 +15,7 @@ export const Register = async (req: Request, res: Response) => {
   const user = await getRepository(Customer).save({
     ...body,
     password: await bcryptjs.hash(password, 10),
-    is_ambassador: false,
+    is_ambassador: req.path === '/ambassador/register',
   });
 
   delete user.password;
@@ -42,6 +42,12 @@ export const Login = async (req: Request, res: Response) => {
     return res.status(400).send({
       message: 'invalid credentials!',
     });
+  }
+
+  const adminLogin = req.path === '/customer/login';
+
+  if (customer.is_ambassador && adminLogin) {
+    return res.status()
   }
 
   const token = sign(
