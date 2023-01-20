@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 
 import { Customer } from '../customer/Customer';
+import { Order } from '../orders/Orders';
 import { Product } from '../product/Product';
 
 @Entity()
@@ -31,4 +32,13 @@ export class Link {
     inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' },
   })
   products: Product[];
+
+  @OneToMany(() => Order, order => order.link, {
+    createForeignKeyConstraints: false
+})
+@JoinColumn({
+    referencedColumnName: 'code',
+    name: 'code'
+})
+orders: Order[];
 }

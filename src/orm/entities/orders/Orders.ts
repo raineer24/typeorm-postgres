@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Pri
 import { Link } from '../link/Link';
 import { OrderItem } from '../order-item/Order-item';
 
-@Entity()
+@Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
@@ -50,11 +50,21 @@ export class Order {
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   order_items: OrderItem[];
 
+  @ManyToOne(() => Link, (link) => link.orders, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({
+    referencedColumnName: 'code',
+    name: 'code',
+  })
+  link: Link;
+
   get name(): string {
     return this.first_name + ' ' + this.last_name;
   }
 
   get total(): number {
+    // eslint-disable-next-line no-array-reduce/no-reduce
     return this.order_items.reduce((s, item) => s + item.admin_revenue, 0);
   }
 }

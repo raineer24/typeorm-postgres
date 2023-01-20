@@ -4,27 +4,6 @@ export class CreateUsers1590521920166 implements MigrationInterface {
   name = 'CreateCustomerII1671552510255';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "customer"
-      ("id" SERIAL NOT NULL UNIQUE,
-         "first_name"    CHARACTER VARYING(40),
-         "last_name"     CHARACTER VARYING(40),
-         "email"         CHARACTER VARYING(100) NOT NULL,
-         "password"      CHARACTER VARYING NOT NULL,
-         "is_ambassador" BOOLEAN)`,
-      undefined,
-    );
-
-    await queryRunner.query(
-      `CREATE TABLE "product"
-      (
-         "id"          SERIAL NOT NULL UNIQUE,
-         "title"       CHARACTER VARYING(40),
-         "description" CHARACTER VARYING(40),
-         "image"       CHARACTER VARYING(255) NOT NULL,
-         "price"       INT NOT NULL)`,
-      undefined,
-    );
-    await queryRunner.query(
       `CREATE TABLE IF NOT EXISTS link
       (
          id SERIAL UNIQUE,
@@ -44,12 +23,46 @@ export class CreateUsers1590521920166 implements MigrationInterface {
        FOREIGN KEY (product_id) REFERENCES product (id))`,
       undefined,
     );
+
+    await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS orders
+        (
+           id               SERIAL NOT NULL UNIQUE,
+           transaction_id   CHARACTER VARYING(255),
+           user_id          INTEGER,
+           code             CHARACTER VARYING(100),
+           ambassador_email CHARACTER VARYING(255),
+           first_name       CHARACTER VARYING(255),
+           last_name        CHARACTER VARYING(255),
+           email           CHARACTER VARYING(255),
+           address          CHARACTER VARYING(255),
+           country          CHARACTER VARYING(255),
+           city             CHARACTER VARYING(255),
+           zip              CHARACTER VARYING(255),
+           complete         BOOLEAN,
+           created_at       TIMESTAMP WITH time zone NOT NULL DEFAULT Now()),
+           FOREIGN KEY (code) REFERENCES link (code))`,
+      undefined,
+    );
+    await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS order_item
+        (
+           id SERIAL UNIQUE,
+           order_id INTEGER,
+           product_title CHARACTER VARYING(255),
+           price INTEGER,
+           quantity INTEGER,
+           ambassador_revenue INTEGER,
+           admin_revenue INTEGER,
+           FOREIGN KEY (order_id) REFERENCES orders (id))`,
+      undefined,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "link"`, undefined);
-    await queryRunner.query(`DROP TABLE "link_products"`, undefined);
-    await queryRunner.query(`DROP TABLE "order"`, undefined);
     await queryRunner.query(`DROP TABLE "order_item"`, undefined);
+    await queryRunner.query(`DROP TABLE "orders"`, undefined);
+    await queryRunner.query(`DROP TABLE "link_products"`, undefined);
+    await queryRunner.query(`DROP TABLE "link"`, undefined);
   }
 }

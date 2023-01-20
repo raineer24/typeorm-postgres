@@ -8,6 +8,8 @@ export const Links = async (req: Request, res: Response) => {
     where: {
       customer: req.params.id,
     },
+    relations: ['orders', 'orders.order_items'],
   });
+
   res.send(links);
 };

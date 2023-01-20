@@ -20,13 +20,13 @@
     "docker:stage": "docker-compose --file docker-compose.yml --file docker-compose.stage.yml --compatibility up --build",
     "docker:prod": "docker-compose --file docker-compose.yml --file docker-compose.prod.yml --compatibility up --build",
     "migration:run": "NODE_PATH=./src ts-node ./node_modules/typeorm/cli.js migration:run --config ./src/orm/config/ormconfig.ts",
-    "migration:run:dev": "PG_HOST=localhost NODE_PATH=./src ts-node ./node_modules/typeorm/cli.js migration:run --config ./src/orm/config/ormconfig.ts",
+    "migration:run:dev": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/typeorm/cli.js migration:run --config ./src/orm/config/ormconfig.ts",
     "migration:revert": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/typeorm/cli.js migration:revert --config ./src/orm/config/ormconfig.ts",
     "migration:generate": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:generate --pretty --config ./src/orm/config/ormconfig.ts -n",
-    "migration:create": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:create --config ./src/orm/config/ormconfig.ts -n order-taker",
+    "migration:create": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:create --config ./src/orm/config/ormconfig.ts -n linksOrderII",
     "seed:run": "NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:run --config ./src/orm/config/ormconfig-seed.ts",
-    "seed:run:dev": "PG_HOST=localhost NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:run --config ./src/orm/config/ormconfig-seed.ts",
-    "seed:create": "PG_HOST=localhost NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:create --config ./src/orm/config/ormconfig-seed.ts -n",
+    "seed:run:dev": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:run --config ./src/orm/config/ormconfig-seed.ts",
+    "seed:create": "PG_HOST=db_boilerplate NODE_PATH=./src ts-node ./node_modules/.bin/typeorm migration:create --config ./src/orm/config/ormconfig-seed.ts -n",
     "schema:drop": "NODE_PATH=./src ts-node ./node_modules/typeorm/cli.js schema:drop --config ./src/orm/config/ormconfig.ts"
   },
   "dependencies": {

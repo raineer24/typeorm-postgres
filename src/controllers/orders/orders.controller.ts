@@ -4,7 +4,7 @@ import { getConnection, getRepository } from 'typeorm';
 import { Order } from '../../orm/entities/orders/Orders';
 export const Orders = async (req: Request, res: Response) => {
   const orders = await getRepository(Order).find({
-    where: { complete: true },
+    where: { complete: 1 },
     relations: ['order_items'],
   });
 

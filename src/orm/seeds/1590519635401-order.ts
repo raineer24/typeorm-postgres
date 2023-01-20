@@ -14,7 +14,7 @@ export class SeedCustomers1590519635405 implements MigrationInterface {
     for (let i = 0; i < 30; i++) {
       const order = await orderRepository.save({
         user_id: randomInt(2, 31),
-        code: faker.random.alphaNumeric(6),
+        code: '2ergas',
         ambassador_email: faker.internet.email(),
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
@@ -33,8 +33,6 @@ export class SeedCustomers1590519635405 implements MigrationInterface {
         });
       }
     }
-
-    
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
