@@ -19,8 +19,16 @@ export const AuthMiddleware = async (req: Request, res: Response, next: Function
       });
     }
 
+    const is_ambassador = req.path.indexOf('/v1/customer/ambassador') >= 0;
+
     const customer = await getRepository(Customer).findOne(payload.id);
     req['user'] = customer;
+
+    if ((is_ambassador && payload.scope !== 'admin') || (!is_ambassador && payload.scope !== 'ambassador')) {
+      return res.status(401).send({
+        message: 'unauthorized',
+      });
+    }
 
     next();
   } catch {

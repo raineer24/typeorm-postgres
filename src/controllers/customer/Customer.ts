@@ -15,7 +15,7 @@ export const Register = async (req: Request, res: Response) => {
   const user = await getRepository(Customer).save({
     ...body,
     password: await bcryptjs.hash(password, 10),
-    is_ambassador: req.path === '/ambassador/register',
+    is_ambassador: req.path === '/v1/customer/ambasaddor/register',
   });
 
   delete user.password;
@@ -44,15 +44,18 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
-  const adminLogin = req.path === '/customer/login';
+  const adminLogin = req.path === '/v1/customer/login';
 
   if (customer.is_ambassador && adminLogin) {
-    return res.status()
+    return res.status(400).send({
+      message: 'unauthorized',
+    });
   }
 
   const token = sign(
     {
       id: customer.id,
+      scope: adminLogin ? 'admin' : 'ambassador',
     },
     process.env.JWT_SECRET,
   );
