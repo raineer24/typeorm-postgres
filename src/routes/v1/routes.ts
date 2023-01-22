@@ -16,20 +16,20 @@ import {
 
 const router = Router();
 
-router.post('/register', Register);
-router.post('/login', Login);
-router.get('/user', AuthMiddleware, AuthenticatedUser);
-router.post('/logout', AuthMiddleware, Logout);
-router.put('/info', AuthMiddleware, UpdateInfo);
-router.put('/password', AuthMiddleware, UpdatePassword);
-router.get('/ambassadors', AuthMiddleware, Ambassadors);
-router.get('/products', AuthMiddleware, Products);
-router.post('/products', AuthMiddleware, CreateProduct);
-router.get('/products/:id', AuthMiddleware, GetProduct);
-router.put('/products/:id', AuthMiddleware, UpdateProduct);
-router.delete('/products/:id', AuthMiddleware, DeleteProduct);
-router.get('/:id/links', AuthMiddleware, Links);
-router.get('/orders', AuthMiddleware, Orders);
+router.post('/admin/register', Register);
+router.post('/admin/login', Login);
+router.get('/admin/user', AuthMiddleware, AuthenticatedUser);
+router.post('/admin/logout', AuthMiddleware, Logout);
+router.put('/admin/info', AuthMiddleware, UpdateInfo);
+router.put('/admin/password', AuthMiddleware, UpdatePassword);
+router.get('/admin/ambassadors', AuthMiddleware, Ambassadors);
+router.get('/admin/products', AuthMiddleware, Products);
+router.post('/admin/products', AuthMiddleware, CreateProduct);
+router.get('/admin/products/:id', AuthMiddleware, GetProduct);
+router.put('/admin/products/:id', AuthMiddleware, UpdateProduct);
+router.delete('/admin/products/:id', AuthMiddleware, DeleteProduct);
+router.get('/admin/:id/links', AuthMiddleware, Links);
+router.get('/admin/orders', AuthMiddleware, Orders);
 
 // Ambassador
 router.post('/ambasaddor/register', Register);

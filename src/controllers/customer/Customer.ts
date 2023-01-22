@@ -4,6 +4,7 @@ import { sign, verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 
 import { Customer } from 'orm/entities/customer/Customer';
+import { Order } from 'orm/entities/orders/Orders';
 
 export const Register = async (req: Request, res: Response) => {
   const { password, password_confirm, ...body } = req.body;
@@ -75,12 +76,19 @@ export const Login = async (req: Request, res: Response) => {
 
 export const AuthenticatedUser = async (req: Request, res: Response) => {
   const user = req['user'];
-  console.log('authenticated');
-  console.log(user, 'user');
-
-  if (req.path === '/api/admin/user') {
+  if (req.path === '/v1/customer/admin/user') {
     return res.send(user);
   }
+
+  const orders = await getRepository(Order).find({
+    where: {
+      user_id: user.id,
+      complete: true,
+    },
+    relations: ['order_items'],
+  });
+  // eslint-disable-next-line no-array-reduce/no-reduce
+  user.revenue = orders.reduce((s, o) => s + o.ambassador_revenue, 0);
 
   res.send(user);
 };

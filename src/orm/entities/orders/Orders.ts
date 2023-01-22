@@ -67,4 +67,9 @@ export class Order {
     // eslint-disable-next-line no-array-reduce/no-reduce
     return this.order_items.reduce((s, item) => s + item.admin_revenue, 0);
   }
+
+  get ambassador_revenue(): number {
+    // eslint-disable-next-line no-array-reduce/no-reduce
+    return this.order_items.reduce((s, item) => s + item.admin_revenue, 0);
+  }
 }
