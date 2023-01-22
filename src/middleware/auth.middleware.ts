@@ -19,12 +19,14 @@ export const AuthMiddleware = async (req: Request, res: Response, next: Function
       });
     }
 
-    const is_ambassador = req.path.indexOf('/v1/customer/ambassador') >= 0;
+    const is_ambassador = req.path.indexOf('/customer/ambassador') >= 0;
+    console.log('auth middleware', req.path);
+    console.log('isambassador', is_ambassador);
 
     const customer = await getRepository(Customer).findOne(payload.id);
-    req['user'] = customer;
+    req['customer'] = customer;
 
-    if ((is_ambassador && payload.scope !== 'admin') || (!is_ambassador && payload.scope !== 'ambassador')) {
+    if ((is_ambassador && payload.scope !== 'ambassador') || (!is_ambassador && payload.scope !== 'admin')) {
       return res.status(401).send({
         message: 'unauthorized',
       });

@@ -34,7 +34,7 @@ router.get('/orders', AuthMiddleware, Orders);
 // Ambassador
 router.post('/ambasaddor/register', Register);
 router.post('/ambasaddor/login', Login);
-router.get('/ambasaddor/user', AuthMiddleware, AuthenticatedUser);
+router.get('/ambassador/user', AuthMiddleware, AuthenticatedUser);
 router.post('/ambasaddor/logout', AuthMiddleware, Logout);
 router.put('/ambasaddor/info', AuthMiddleware, UpdateInfo);
 router.put('/ambasaddor/password', AuthMiddleware, UpdatePassword);

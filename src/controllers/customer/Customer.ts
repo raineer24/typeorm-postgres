@@ -15,8 +15,10 @@ export const Register = async (req: Request, res: Response) => {
   const user = await getRepository(Customer).save({
     ...body,
     password: await bcryptjs.hash(password, 10),
-    is_ambassador: req.path === '/v1/customer/ambasaddor/register',
+    is_ambassador: req.path === '/ambasaddor/register',
   });
+
+  console.log('user', req.path);
 
   delete user.password;
 
@@ -24,6 +26,7 @@ export const Register = async (req: Request, res: Response) => {
 };
 
 export const Login = async (req: Request, res: Response) => {
+  console.log('yawa');
   const customer = await getRepository(Customer).findOne(
     { email: req.body.email },
     {
@@ -44,7 +47,7 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
-  const adminLogin = req.path === '/v1/customer/login';
+  const adminLogin = req.path === '/customer/login';
 
   if (customer.is_ambassador && adminLogin) {
     return res.status(400).send({
@@ -72,6 +75,12 @@ export const Login = async (req: Request, res: Response) => {
 
 export const AuthenticatedUser = async (req: Request, res: Response) => {
   const user = req['user'];
+  console.log('authenticated');
+  console.log(user, 'user');
+
+  if (req.path === '/api/admin/user') {
+    return res.send(user);
+  }
 
   res.send(user);
 };
