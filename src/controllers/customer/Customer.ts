@@ -75,10 +75,12 @@ export const Login = async (req: Request, res: Response) => {
 };
 
 export const AuthenticatedUser = async (req: Request, res: Response) => {
-  const user = req['user'];
-  if (req.path === '/v1/customer/admin/user') {
+  const user = req['customer'];
+  if (req.path === 'customer/admin/user') {
     return res.send(user);
   }
+  console.log('req path', req.path);
+  console.log('user id', user);
 
   const orders = await getRepository(Order).find({
     where: {
@@ -89,7 +91,7 @@ export const AuthenticatedUser = async (req: Request, res: Response) => {
   });
   // eslint-disable-next-line no-array-reduce/no-reduce
   user.revenue = orders.reduce((s, o) => s + o.ambassador_revenue, 0);
-
+  console.log('user revenue', user);
   res.send(user);
 };
 
