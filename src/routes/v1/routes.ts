@@ -12,6 +12,7 @@ import {
   GetProduct,
   UpdateProduct,
   DeleteProduct,
+  ProductsFrontend,
 } from '../../controllers/product/product.controller';
 
 const router = Router();
@@ -38,5 +39,7 @@ router.get('/ambassador/user', AuthMiddleware, AuthenticatedUser);
 router.post('/ambasaddor/logout', AuthMiddleware, Logout);
 router.put('/ambasaddor/info', AuthMiddleware, UpdateInfo);
 router.put('/ambasaddor/password', AuthMiddleware, UpdatePassword);
+
+router.get('/api/ambassador/products/frontend', ProductsFrontend);
 
 export default router;

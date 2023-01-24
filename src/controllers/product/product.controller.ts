@@ -28,3 +28,7 @@ export const DeleteProduct = async (req: Request, res: Response) => {
 
   res.status(204).send(null);
 };
+
+export const ProductsFrontend = async (req: Request, res: Response) => {
+  res.send(await getRepository(Product).find());
+};
