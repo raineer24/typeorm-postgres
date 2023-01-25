@@ -19,6 +19,7 @@ export const Register = async (req: Request, res: Response) => {
     is_ambassador: req.path === '/ambasaddor/register',
   });
 
+  console.log(user);
   console.log('user', req.path);
 
   delete user.password;
@@ -48,8 +49,9 @@ export const Login = async (req: Request, res: Response) => {
     });
   }
 
-  const adminLogin = req.path === '/customer/login';
-
+  const adminLogin = req.path === '/admin/login';
+  console.log('login req path', req.path);
+  console.log('adminLOgin', adminLogin);
   if (customer.is_ambassador && adminLogin) {
     return res.status(400).send({
       message: 'unauthorized',

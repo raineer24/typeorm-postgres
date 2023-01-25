@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
+import { client } from '../../orm/dbCreateConnection';
 import { Product } from '../../orm/entities/product/Product';
 
 export const Products = async (req: Request, res: Response) => {
@@ -30,5 +31,33 @@ export const DeleteProduct = async (req: Request, res: Response) => {
 };
 
 export const ProductsFrontend = async (req: Request, res: Response) => {
-  res.send(await getRepository(Product).find());
+  let products = JSON.parse(await client.get('products_frontend'));
+
+  if (!products) {
+    products = await getRepository(Product).find();
+
+    await client.set('products_frontend', JSON.stringify(products), {
+      EX: 1800, //30 min
+    });
+  }
+  return res.send(products);
+};
+
+export const ProductsBackend = async (req: Request, res: Response) => {
+  let products = JSON.parse(await client.get('products_frontend'));
+
+  if (!products) {
+    products = await getRepository(Product).find();
+
+    await client.set('products_frontend', JSON.stringify(products), {
+      EX: 1800, //30 min
+    });
+  }
+
+  if (req.query.s) {
+    const s = req.query.s.toString();
+
+    products = products.filter((p) => p.title.indexOf(s) >= 0);
+  }
+  return res.send(products);
 };

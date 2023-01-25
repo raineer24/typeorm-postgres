@@ -26,6 +26,7 @@ export const AuthMiddleware = async (req: Request, res: Response, next: Function
     const customer = await getRepository(Customer).findOne(payload.id);
     req['customer'] = customer;
     console.log(customer, 'customer');
+    console.log('payload',payload)
 
     if ((is_ambassador && payload.scope !== 'ambassador') || (!is_ambassador && payload.scope !== 'admin')) {
       return res.status(401).send({

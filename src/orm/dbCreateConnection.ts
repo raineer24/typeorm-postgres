@@ -9,11 +9,12 @@ export const client = createClient({
 export const dbCreateConnection = async (): Promise<Connection | null> => {
   try {
     const conn = await createConnection(config);
+    await client.connect();
+    // const getApp = async () => await createConnection(config);
+    // getApp().then(async () => {
+    //   await client.connect();
+    // });
 
-    const getApp = async () => await createConnection(config);
-    getApp().then(async () => {
-      await client.connect();
-    });
     console.log(`Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`);
   } catch (err) {
     if (err.name === 'AlreadyHasActiveConnectionError') {

@@ -39,7 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
-    "redis": "^3.1.2",
+    "redis": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.45",
     "typeorm-naming-strategies": "^4.0.0",
