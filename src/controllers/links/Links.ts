@@ -13,3 +13,15 @@ export const Links = async (req: Request, res: Response) => {
 
   res.send(links);
 };
+
+export const CreateLink = async (req: Request, res: Response) => {
+  const user = req['customer'];
+
+  const link = await getRepository(Link).save({
+    user,
+    code: Math.random().toString(36).substring(6),
+    products: req.body.products.map((id) => ({ id })),
+  });
+
+  res.send(link);
+};

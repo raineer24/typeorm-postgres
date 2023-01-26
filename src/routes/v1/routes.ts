@@ -4,7 +4,7 @@ import { Register, Login, AuthenticatedUser, Logout, UpdateInfo, UpdatePassword 
 import { Ambassadors } from 'controllers/user';
 import { AuthMiddleware } from 'middleware/auth.middleware';
 
-import { Links } from '../../controllers/links/Links';
+import { Links, CreateLink } from '../../controllers/links/Links';
 import { Orders } from '../../controllers/orders/orders.controller';
 import {
   Products,
@@ -43,5 +43,6 @@ router.put('/ambasaddor/password', AuthMiddleware, UpdatePassword);
 
 router.get('/ambassador/products/frontend', ProductsFrontend);
 router.get('/ambassador/products/backend', ProductsBackend);
+router.post('/ambassador/links', AuthMiddleware, CreateLink);
 
 export default router;
