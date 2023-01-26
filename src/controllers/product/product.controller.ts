@@ -55,9 +55,25 @@ export const ProductsBackend = async (req: Request, res: Response) => {
   }
 
   if (req.query.s) {
-    const s = req.query.s.toString();
+    const s = req.query.s.toString().toLowerCase();
 
-    products = products.filter((p) => p.title.indexOf(s) >= 0);
+    products = products.filter(
+      (p) => p.title.toLowerCase().indexOf(s) >= 0 || p.description.toLowerCase().indexOf(s) >= 0,
+    );
+  }
+
+  if (req.query.sort === 'asc') {
+    products.sort((a, b) => {
+      const diff = a.price - b.price;
+
+      if (diff === 0) {
+        return 0;
+      }
+
+      const sign = Math.abs(diff) / diff; // -1, 1
+
+      return req.query.sort === 'asc' ? sign : -sign;
+    });
   }
   return res.send(products);
 };
